@@ -14,6 +14,7 @@ const storeValidaciones = Validaciones
   const BioUsuario = ref('')
   const mailExist = ref(false)
   const credentials = ref(false)
+  const created = ref(false)
 
   const valMailExist = () => {
     mailExist.value = true
@@ -21,6 +22,11 @@ const storeValidaciones = Validaciones
 
   const valCredentials = () => {
     credentials.value = true
+  }
+
+  const redirect = () => {
+    window.scrollTo(0,0)
+    created.value = true
   }
 
   const iniciarSesion = () =>{
@@ -55,7 +61,7 @@ const CrearUsuario = () =>{
   axios.post('https://localhost:7158/api/Usuario/CrearUsuario', jsonDatos).then(res => {
     console.log(res)
     if(res.status === 200){
-        alert('Todo ok')
+        redirect()
     }else if(res.status === 204){        
         valMailExist()
     }else if(res.status === 400){
@@ -78,5 +84,8 @@ const CrearUsuario = () =>{
     valMailExist, 
     mailExist, 
     credentials, 
-    valCredentials }
+    valCredentials, 
+    redirect,
+    created
+   }
 })

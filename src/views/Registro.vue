@@ -1,7 +1,32 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper relative">
+    <div
+      v-if="storeLogreg.created"
+      class="custom-modal">
+      <p class="text-blue-600 font-bold self-center">
+        USUARIO CREADO CON EXITO
+      </p>
+      <button
+        @click="moveToLogin()"
+        class="
+          border
+          focus:outline-none
+          rounded
+          font-bold
+          focus:border-blue-800
+          border-blue-600
+          text-blue-600
+          w-1/2
+          h-1/4
+          self-center
+          mt-2
+        "
+      >
+        Aceptar
+      </button>
+    </div>
     <div class="sm:w-1/2 h-full">
-      <img class="h-full" src="src\images\register.png" alt="" />
+      <img class="h-full" src="@/assets/register.png" alt="" />
     </div>
     <div class="sm:w-1/2 h-full sm:pt-10">
       <form
@@ -308,7 +333,7 @@
             Crear Usuario
           </button>
         </div>
-        <div class="flex justify-center gap-2">
+        <div class="flex justify-center gap-2 pb-10">
           <span class="space-x-2">¿Ya tienes una cuenta?</span
           ><router-link
             class="text-blue-600 focus:outline-none focus:border-blue-800"
@@ -322,10 +347,21 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import router from "@/router";
 import { LogReg } from "@/stores/LogReg";
 const storeLogreg = LogReg();
 import { Validaciones } from "@/stores/Validaciones";
 const storeValidaciones = Validaciones();
+
+const moveToLogin = () => {
+  router.push("/Login");
+  storeLogreg.created = false
+  storeLogreg.Email = ''  
+  storeLogreg.Nombre = ''
+  storeLogreg.UserName = ''
+  storeLogreg.Contraseña = ''
+  storeLogreg.ConfirmarClave = ''
+  storeLogreg.BioUsuario = ''  
+};
 </script>
 
