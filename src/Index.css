@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.wrapper{
+    @apply py-4 container mx-auto flex flex-col sm:flex-row align-middle justify-center h-screen
+}
+
+.validation{
+    @apply block border-2 rounded-xl w-1/2 text-center font-bold mt-1 px-4 text-red-600 border-red-600
+}
