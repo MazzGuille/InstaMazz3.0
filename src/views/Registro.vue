@@ -63,15 +63,21 @@
               id="emailInput"
               type="email"
             />
-            <span class="validation" v-if="storeLogreg.mailExist">
-              El mail ingresado pertenece a un usuario registrado
-            </span>
-            <span class="validation" v-if="storeValidaciones.mailFormat">
-              Formato de Email incorrecto
-            </span>
-            <span class="validation" v-if="storeValidaciones.mailLen">
-              El campo Email es requerido
-            </span>
+            <transition appear @enter="Span">
+              <span class="validation" v-if="storeLogreg.mailExist">
+                El mail ingresado pertenece a un usuario registrado
+              </span>
+            </transition>
+            <transition appear @enter="Span">
+              <span class="validation" v-if="storeValidaciones.mailFormat">
+                Formato de Email incorrecto
+              </span>
+            </transition>
+            <transition appear @enter="Span">
+              <span class="validation" v-if="storeValidaciones.mailLen">
+                El campo Email es requerido
+              </span>
+            </transition>
           </div>
         </transition>
         <transition appear @enter="NameInput">
@@ -109,9 +115,11 @@
               id="Nom"
               type="text"
             />
-            <span class="validation" v-if="storeValidaciones.nombreLen">
-              El nombre debe tener un minimo de 4 caracteres
-            </span>
+            <transition appear @enter="Span">
+              <span class="validation" v-if="storeValidaciones.nombreLen">
+                El nombre debe tener un minimo de 4 caracteres
+              </span>
+            </transition>
           </div>
         </transition>
         <transition appear @enter="UsuNameInput">
@@ -149,12 +157,16 @@
               id="NomUsu"
               type="text"
             />
-            <span class="validation" v-if="storeValidaciones.usuMin">
-              El nombre de usuario debe tener como minimo 4 caracteres
-            </span>
-            <span class="validation" v-if="storeValidaciones.usuMax">
-              El nombre de usuario debe tener como maximo 12 caracteres
-            </span>
+            <transition appear @enter="Span">
+              <span class="validation" v-if="storeValidaciones.usuMin">
+                El nombre de usuario debe tener como minimo 4 caracteres
+              </span>
+            </transition>
+              <transition appear @enter="Span">
+                <span class="validation" v-if="storeValidaciones.usuMax">
+                  El nombre de usuario debe tener como maximo 12 caracteres
+                </span>
+              </transition>          
           </div>
         </transition >
         <transition appear @enter="ImgInput">
@@ -284,12 +296,16 @@
                 ></i
               ></span>
             </div>
-            <span class="validation" v-if="storeValidaciones.contraLen">
-              La contraseña debe tener como minimo 8 caracteres
-            </span>
-            <span class="validation" v-if="storeValidaciones.contraMatch">
-              Las contraseñas no coinciden
-            </span>
+            <transition appear @enter="Span">
+              <span class="validation" v-if="storeValidaciones.contraLen">
+                La contraseña debe tener como minimo 8 caracteres
+              </span>
+            </transition>
+            <transition appear @enter="Span">
+              <span class="validation" v-if="storeValidaciones.contraMatch">
+                Las contraseñas no coinciden
+              </span>
+            </transition>
           </div>
         </transition>
         <transition appear @enter="PassConInput">
@@ -366,7 +382,6 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
 import router from "@/router";
 import gsap from "gsap";
 import { LogReg } from "@/stores/LogReg";
@@ -376,14 +391,14 @@ const storeValidaciones = Validaciones();
 
 
 const moveToLogin = () => {
-  router.push("/Login");
-  storeLogreg.created = false;
-  storeLogreg.Email = "";
-  storeLogreg.Nombre = "";
-  storeLogreg.UserName = "";
-  storeLogreg.Contraseña = "";
-  storeLogreg.ConfirmarClave = "";
-  storeLogreg.BioUsuario = "";
+  router.push("/Login")
+  storeLogreg.created = false
+  storeLogreg.Email = ""
+  storeLogreg.Nombre = ""
+  storeLogreg.UserName = ""
+  storeLogreg.Contraseña = ""
+  storeLogreg.ConfirmarClave = ""
+  storeLogreg.BioUsuario = ""
 };
 
 const getImage = (event) => {
@@ -396,6 +411,10 @@ const getImage = (event) => {
 
 
 //------------------------------------------ANIMATIONS----------------------------------------------//
+const Span = (el) => {
+  gsap.from(el, { scale: 0, duration: .75 });
+};
+
 const ImgEnter = (el) => {
   gsap.from(el, { opacity: 0, scale: 0, duration: 3, delay: 0.1 });
 };

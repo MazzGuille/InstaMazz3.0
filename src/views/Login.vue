@@ -11,6 +11,7 @@
     </transition>
     <div class="sm:w-1/2 h-full pt-3 sm:pt-24">
       <form
+      autocomplete="off"
         @submit.prevent="storeLogreg.iniciarSesion"
         class="px-4 h-full space-y-7"
       >
@@ -49,9 +50,11 @@
               id="emailInput"
               type="email"
             />
-            <span class="validation" v-if="storeValidaciones.mailFormat">
-              Formato de Email incorrecto
-            </span>
+            <transition appear @enter="Span">
+              <span class="validation" v-if="storeValidaciones.mailFormat">
+                Formato de Email incorrecto
+              </span>
+            </transition>
           </div>
         </transition>
         <transition appear @enter ="PassInput">
@@ -123,7 +126,7 @@
             </div>
           </div>
         </transition>
-        <span v-if="storeLogreg.credentials" class="validation mx-auto w-full">Credenciales invalidas</span>
+        <transition appear @enter="Span"><span v-if="storeLogreg.credentials" class="validation mx-auto w-full">Credenciales invalidas</span></transition>
         <transition appear @enter ="BtnInput">
           <div class="w-full flex justify-center">
             <button
@@ -156,6 +159,10 @@ import { Validaciones } from "@/stores/Validaciones";
 const storeValidaciones = Validaciones();
 
 //------------------------------------------ANIMATIONS----------------------------------------------//
+const Span = (el) => {
+  gsap.from(el, { scale: 0, duration: .75 });
+};
+
 const ImgEnter = (el) => {
   gsap.from(el, {opacity:0, scale:0, duration:3, delay: .1} )
  }
