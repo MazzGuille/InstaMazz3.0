@@ -11,7 +11,8 @@ const storeValidaciones = Validaciones
   const UserName = ref('')
   const Contraseña = ref('')
   const ConfirmarClave = ref('')
-  const BioUsuario = ref('')
+  const BioUsuario = ref('')  
+  const rutaDocumento = ref('null')
   const mailExist = ref(false)
   const credentials = ref(false)
   const created = ref(false)
@@ -38,12 +39,19 @@ const storeValidaciones = Validaciones
     axios.post('https://localhost:7158/api/Usuario/Login', jsonDatos).then(res=>{
         console.log(res)
         if(res.status === 200){
-            alert('Todo ok')
-            credentials.value = false
+           credentials.value = false
         }else{
           valCredentials()
         }
     }).catch(function (error) {          
+        console.log(error)          
+      })
+}
+
+const imgPrefil = (formData) => {  
+  axios.post('https://localhost:7158/api/Usuario/CargarArchivo', formData).then(res => {
+    console.log(res)   
+  }).catch(function (error) {          
         console.log(error)          
       })
 }
@@ -86,6 +94,8 @@ const CrearUsuario = () =>{
     credentials, 
     valCredentials, 
     redirect,
-    created
-   }
+    created,
+    rutaDocumento,
+    imgPrefil
+    }
 })

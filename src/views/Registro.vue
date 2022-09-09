@@ -1,15 +1,15 @@
 <template>
   <div class="wrapper">
     <transition appear @enter="ModalEnter">
-      <div
-        v-if="storeLogreg.created"
-        class="custom-modal">
+      <div v-if="storeLogreg.created" class="custom-modal">
         <p class="text-blue-600 font-bold self-center">
           USUARIO CREADO CON EXITO
         </p>
         <button
           @click="moveToLogin()"
-          type="submit" class="btn-blue-600 w-1/2 self-center mt-2">
+          type="submit"
+          class="btn-blue-600 w-1/2 self-center mt-2"
+        >
           Aceptar
         </button>
       </div>
@@ -25,7 +25,7 @@
         @submit.prevent="storeLogreg.CrearUsuario()"
         class="px-4 h-full space-y-7"
       >
-        <transition appear @enter ="MailInput" >
+        <transition appear @enter="MailInput">
           <div class="my-auto mx-auto">
             <label class="flex align-middle gap-4" for="emailInput"
               ><i class="w-4 inline-block text-blue-600"
@@ -48,7 +48,8 @@
             >
             <input
               @input="
-                storeValidaciones.valMailFormat(), storeValidaciones.valMailLen()
+                storeValidaciones.valMailFormat(),
+                  storeValidaciones.valMailLen()
               "
               v-model="storeLogreg.Email"
               class="
@@ -73,7 +74,7 @@
             </span>
           </div>
         </transition>
-        <transition appear @enter ="NameInput">
+        <transition appear @enter="NameInput">
           <div class="my-auto mx-auto">
             <label class="flex align-middle gap-4" for="Nom"
               ><i class="w-4 inline-block text-blue-600"
@@ -113,7 +114,7 @@
             </span>
           </div>
         </transition>
-        <transition appear @enter ="UsuNameInput">
+        <transition appear @enter="UsuNameInput">
           <div class="my-auto mx-auto">
             <label class="flex align-middle gap-4" for="NomUsu"
               ><i class="w-4 inline-block text-blue-600"
@@ -155,8 +156,31 @@
               El nombre de usuario debe tener como maximo 12 caracteres
             </span>
           </div>
+        </transition >
+        <transition appear @enter="ImgInput">
+          <div class="my-auto mx-auto">
+            <label class="flex align-middle gap-4" for="imgInput">
+              <i class="w-4 inline-block text-blue-600">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-6 h-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+                  />
+                </svg> </i
+              >Imagen de perfil
+            </label>
+            <input class="file-input" ref="file" type="file" @change="getImage">
+          </div>
         </transition>
-        <transition appear @enter ="BioInput">
+        <transition appear @enter="BioInput">
           <div class="my-auto mx-auto">
             <label class="flex align-middle gap-4" for="Bio"
               ><i class="w-4 inline-block text-blue-600"
@@ -191,7 +215,7 @@
             />
           </div>
         </transition>
-        <transition appear @enter ="PassInput">
+        <transition appear @enter="PassInput">
           <div class="my-auto mx-auto">
             <label class="flex align-middle gap-4" for="passwdInput"
               ><i class="w-4 inline-block text-blue-600"
@@ -268,7 +292,7 @@
             </span>
           </div>
         </transition>
-        <transition appear @enter ="PassConInput">
+        <transition appear @enter="PassConInput">
           <div class="my-auto mx-auto">
             <label class="flex align-middle gap-4" for="conPasswdInput"
               ><i class="w-4 inline-block text-blue-600"
@@ -321,14 +345,12 @@
             />
           </div>
         </transition>
-        <transition appear @enter ="BtnInput">
+        <transition appear @enter="BtnInput">
           <div class="w-full flex justify-center">
-            <button type="submit"  class="btn-blue-600">
-              Crear Usuario
-            </button>
+            <button type="submit" class="btn-blue-600">Crear Usuario</button>
           </div>
         </transition>
-        <transition appear @enter ="TxtInput">
+        <transition appear @enter="TxtInput">
           <div class="flex justify-center gap-2 pb-10">
             <span class="space-x-2">¿Ya tienes una cuenta?</span
             ><router-link
@@ -344,64 +366,79 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import router from "@/router";
-import gsap from 'gsap'
+import gsap from "gsap";
 import { LogReg } from "@/stores/LogReg";
 const storeLogreg = LogReg();
 import { Validaciones } from "@/stores/Validaciones";
 const storeValidaciones = Validaciones();
 
+
 const moveToLogin = () => {
   router.push("/Login");
-  storeLogreg.created = false
-  storeLogreg.Email = ''  
-  storeLogreg.Nombre = ''
-  storeLogreg.UserName = ''
-  storeLogreg.Contraseña = ''
-  storeLogreg.ConfirmarClave = ''
-  storeLogreg.BioUsuario = ''  
+  storeLogreg.created = false;
+  storeLogreg.Email = "";
+  storeLogreg.Nombre = "";
+  storeLogreg.UserName = "";
+  storeLogreg.Contraseña = "";
+  storeLogreg.ConfirmarClave = "";
+  storeLogreg.BioUsuario = "";
 };
+
+const getImage = (event) => {
+  console.log(event.target.files[0].name)
+  let formData = new FormData();
+  formData.append('Archivo', event.target.files[0]);
+  storeLogreg.imgPrefil(formData)
+}
+
+
 
 //------------------------------------------ANIMATIONS----------------------------------------------//
 const ImgEnter = (el) => {
-  gsap.from(el, {opacity:0, scale:0, duration:3, delay: .1} )
- }
+  gsap.from(el, { opacity: 0, scale: 0, duration: 3, delay: 0.1 });
+};
 
 const MailInput = (el) => {
-  gsap.from(el, {opacity:0, duration: 2, x:-200, delay: 1} )
-}
+  gsap.from(el, { opacity: 0, duration: 2, x: -200, delay: 1 });
+};
 
 const NameInput = (el) => {
-  gsap.from(el, {opacity:0, duration: 2, x:-200, delay: 1.5} )
-}
+  gsap.from(el, { opacity: 0, duration: 2, x: -200, delay: 1.5 });
+};
 
 const UsuNameInput = (el) => {
-  gsap.from(el, {opacity:0, duration: 2, x:-200, delay: 2} )
-}
+  gsap.from(el, { opacity: 0, duration: 2, x: -200, delay: 2 });
+};
+
+const ImgInput = (el) => {
+  gsap.from(el, { opacity: 0, duration: 2, x: -200, delay: 2.5 });
+};
 
 const BioInput = (el) => {
-  gsap.from(el, {opacity:0, duration: 2, x:-200, delay: 2.5} )
-}
+  gsap.from(el, { opacity: 0, duration: 2, x: -200, delay: 3 });
+};
 
 const PassInput = (el) => {
-  gsap.from(el, {opacity:0, duration: 2, x:-200, delay: 3} )
-}
+  gsap.from(el, { opacity: 0, duration: 2, x: -200, delay: 3.5 });
+};
 
 const PassConInput = (el) => {
-  gsap.from(el, {opacity:0, duration: 2, x:-200, delay: 3.5} )
-}
+  gsap.from(el, { opacity: 0, duration: 2, x: -200, delay: 4 });
+};
 
 const BtnInput = (el) => {
-  gsap.from(el, {opacity:0, duration: 2, scale:0, delay: 4.5} )
-}
+  gsap.from(el, { opacity: 0, duration: 2, scale: 0, delay: 4.5 });
+};
 
 const TxtInput = (el) => {
-  gsap.from(el, {opacity:0, duration: 2, scale:0, delay: 5} )
-}
+  gsap.from(el, { opacity: 0, duration: 2, scale: 0, delay: 5 });
+};
 
 const ModalEnter = (el) => {
-  gsap.from(el, {opacity:0, duration: 1, scale:0, delay: .3} )
-}
+  gsap.from(el, { opacity: 0, duration: 1, scale: 0, delay: 0.3 });
+};
 //------------------------------------------ANIMATIONS----------------------------------------------//
 </script>
 
