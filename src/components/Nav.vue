@@ -9,6 +9,8 @@
       md:flex
       justify-between
       items-center
+      fixed
+      w-full
     "
   >
     <div class="flex items-center cursor-pointer">

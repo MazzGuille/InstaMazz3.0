@@ -9,8 +9,8 @@ export const LogReg = defineStore('LogReg', () => {
   const storeValidaciones = Validaciones
 
   const Email = ref('')
-  const Nombre = ref('')
-  const UserName = ref('')
+  const Nombre = ref('Guillermo Mazzari')
+  const UserName = ref('Mazzcode')
   const Contraseña = ref('')
   const ConfirmarClave = ref('')
   const BioUsuario = ref('')

@@ -1,12 +1,13 @@
 <template>
-    <Nav />
-    <div>
-        SEARCH PAGE
-    </div>
+  <div>
+      <div class="vh-10">
+        <Nav />
+      </div>
+      <div>SEARCH PAGE</div>
+  </div>
 </template>
 
 <script setup>
-import Nav from '@/components/Nav.vue'
-
+import Nav from "@/components/Nav.vue";
 </script>
 

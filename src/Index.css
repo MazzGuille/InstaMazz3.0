@@ -21,3 +21,7 @@
 .file-input{
   @apply block w-full text-sm text-gray-900 bg-white focus:border-blue-800 rounded-lg border border-gray-300 cursor-pointer focus:outline-none 
 }
+
+.vh-10{
+  height: 10vh;
+}
